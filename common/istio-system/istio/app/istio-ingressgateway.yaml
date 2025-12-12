@@ -1,0 +1,83 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app istio-ingressgateway
+  namespace: istio-system
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/base: *app
+  interval: 15m
+  targetNamespace: istio-system
+  chart:
+    spec:
+      chart: gateway
+      version: 1.28.1
+      sourceRef:
+        kind: HelmRepository
+        name: istio
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: istiod
+  values:
+    # Deploy the ingress gateway on the Hetzner control plane node
+    # This node has the easiest internet access via Slack Nebula overlay
+    nodeSelector:
+      node-role.kubernetes.io/control-plane: ""
+
+    # Tolerate control plane taints
+    tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+        effect: NoSchedule
+
+    # Service configuration for external access
+    service:
+      type: NodePort  # or LoadBalancer if you have a load balancer solution
+      ports:
+        - name: http
+          port: 80
+          targetPort: 8080
+          nodePort: 30080  # Accessible via <node-ip>:30080
+          protocol: TCP
+        - name: https
+          port: 443
+          targetPort: 8443
+          nodePort: 30443  # Accessible via <node-ip>:30443
+          protocol: TCP
+
+    # Resource configuration
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 2000m
+        memory: 1024Mi
+
+    # Enable autoscaling (optional)
+    autoscaling:
+      enabled: true
+      minReplicas: 1
+      maxReplicas: 3
+      targetCPUUtilizationPercentage: 80
+
+    # Annotations for the service (useful for external-dns or cloud providers)
+    annotations: {}
+
+    # Labels to identify the gateway
+    labels:
+      istio: ingressgateway
+      app: istio-ingressgateway

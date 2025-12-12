@@ -2,8 +2,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - github.com/dxas90/common/install?ref=v0.6.0
+  - github.com/fluxcd/flux2/manifests/install?ref=v2.7.5
   - https://github.com/jetstack/cert-manager/releases/download/v1.19.1/cert-manager.yaml
+  - https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.0/standard-install.yaml
+  - https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.86.1/stripped-down-crds.yaml
 patches:
   - patch: |-
       $patch: delete
@@ -38,24 +40,6 @@ patches:
     target:
       kind: Deployment
       name: (kustomize-controller|helm-controller|source-controller|image-reflector-controller)
-  - # Increase the memory limits
-    patch: |
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: all
-      spec:
-        template:
-          spec:
-            containers:
-              - name: manager
-                resources:
-                  limits:
-                    memory: 512Mi
-                    cpu: 250m
-    target:
-      kind: Deployment
-      name: (kustomize-controller|helm-controller|source-controller|image-reflector-controller|image-automation-controller|notification-controller)
   - # Enable in-memory kustomize builds
     patch: |
       - op: add
@@ -106,14 +90,6 @@ patches:
     target:
       kind: Deployment
       name: helm-controller
-  - # Controller-level SOPS decryption
-    patch: |
-      - op: add
-        path: /spec/template/spec/containers/0/args/-
-        value: --sops-age-secret=sops-age
-    target:
-      kind: Deployment
-      name: kustomize-controller
   - # Watch configmaps and secrets attached to HelmReleases and Kustomizations
     patch: |-
       - op: add
@@ -122,15 +98,3 @@ patches:
     target:
       kind: Deployment
       name: (helm-controller|kustomize-controller)
-  # Add labels to Dragonfly Operator Deployment
-  - patch: |-
-      - op: add
-        path: /metadata/labels
-        value:
-          app.kubernetes.io/app: dragonfly-operator
-          app.kubernetes.io/version: v1.3.1
-    target:
-      group: apps
-      version: v1
-      kind: Deployment
-      name: dragonfly-operator-controller-manager

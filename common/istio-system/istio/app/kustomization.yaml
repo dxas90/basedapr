@@ -1,0 +1,10 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./helmrepository.yaml
+  - ./istio-base.yaml
+  - ./istio-istiod.yaml
+  - ./istio-cni.yaml
+  - ./istio-ztunnel.yaml
+  # - ./istio-ingressgateway.yaml
