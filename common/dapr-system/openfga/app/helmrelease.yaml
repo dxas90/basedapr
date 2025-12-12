@@ -26,3 +26,5 @@ spec:
       app.kubernetes.io/system: permissions
       toolkit.fluxcd.io/tenant: devops-team
       app.kubernetes.io/part-of-system: *app
+    image:
+      repository: ghcr.io/openfga/openfga
