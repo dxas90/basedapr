@@ -492,3 +492,6 @@ spec:
     - hostname: awx-demo.example.com
   ingress_annotations: |
     environment: testing
+
+
+kubectl apply --server-side -k bootstrap ;kubectl apply --server-side -k common
