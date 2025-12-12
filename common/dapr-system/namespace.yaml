@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dapr-system
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+  labels:
+    istio.io/dataplane-mode: ambient
+    toolkit.fluxcd.io/tenant: devops-team
+    kustomize.toolkit.fluxcd.io/prune: disabled
