@@ -4,5 +4,4 @@ kind: Kustomization
 components:
   - ../components
 resources:
-  - github.com/dxas90/common//common?ref=v0.4.0
   - ./playground
