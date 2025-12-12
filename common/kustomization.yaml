@@ -6,7 +6,7 @@ transformers:
 resources:
   - dapr-system
   - default
-  - github.com/dxas90/common/common?ref=v0.5.0
+  - github.com/dxas90/common/common?ref=v0.6.0
 patches:
   # https://istio.io/latest/docs/ambient/install/platform-prerequisites/#k3s
   # https://github.com/istio/istio/blob/master/manifests/helm-profiles/platform-k3s.yaml
