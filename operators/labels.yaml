@@ -1,0 +1,9 @@
+apiVersion: builtin
+kind: LabelTransformer
+metadata:
+  name: labels
+labels:
+  app.kubernetes.io/usage: extra-operators
+fieldSpecs:
+  - path: metadata/labels
+    create: true

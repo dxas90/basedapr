@@ -6,3 +6,21 @@ transformers:
 resources:
   - dapr-system
   - default
+  - github.com/dxas90/common/common?ref=v0.5.0
+patches:
+  # https://istio.io/latest/docs/ambient/install/platform-prerequisites/#k3s
+  # https://github.com/istio/istio/blob/master/manifests/helm-profiles/platform-k3s.yaml
+  - target:
+      kind: HelmRelease
+      name: istio-cni
+      namespace: istio-system
+    patch: |-
+      - op: replace
+        path: /spec/values
+        value:
+          global:
+            platform: k3s
+          cniConfDir: /var/lib/rancher/k3s/agent/etc/cni/net.d
+          cniBinDir: /var/lib/rancher/k3s/data/cni
+          ambient:
+            enabled: true

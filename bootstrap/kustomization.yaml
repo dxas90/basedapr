@@ -3,7 +3,30 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - github.com/dxas90/common/install?ref=v0.5.0
+  - https://github.com/jetstack/cert-manager/releases/download/v1.19.1/cert-manager.yaml
 patches:
+  - patch: |-
+      $patch: delete
+      apiVersion: networking.k8s.io/v1
+      kind: NetworkPolicy
+      metadata:
+        name: not-used
+    target:
+      group: networking.k8s.io
+      kind: NetworkPolicy
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --dns01-recursive-nameservers=https://1.1.1.1:443/dns-query,https://1.0.0.1:443/dns-query
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --dns01-recursive-nameservers-only=true
+    target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: cert-manager
+      namespace: cert-manager
   - # Increase the number of workers
     patch: |
       - op: add
@@ -99,3 +122,15 @@ patches:
     target:
       kind: Deployment
       name: (helm-controller|kustomize-controller)
+  # Add labels to Dragonfly Operator Deployment
+  - patch: |-
+      - op: add
+        path: /metadata/labels
+        value:
+          app.kubernetes.io/app: dragonfly-operator
+          app.kubernetes.io/version: v1.3.1
+    target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: dragonfly-operator-controller-manager
