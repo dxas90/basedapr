@@ -37,3 +37,6 @@ home.sh
 .mise.local.toml
 
 ._*
+
+usage.txt
+architecture_plan.txt
