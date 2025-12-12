@@ -1,0 +1,10 @@
+apiVersion: builtin
+kind: LabelTransformer
+metadata:
+  name: labels
+labels:
+  app.kubernetes.io/cluster: k3d
+  app.kubernetes.io/usage: infrastructure
+fieldSpecs:
+  - path: metadata/labels
+    create: true

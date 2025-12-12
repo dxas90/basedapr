@@ -1,0 +1,27 @@
+[tools]
+age = "latest"
+dapr = "latest"
+direnv = "latest"
+flux2 = "latest"
+k3d = "latest"
+kubectl = "latest"
+python = { version='3' }
+sops = "latest"
+uv = "latest"
+
+[settings]
+experimental = true
+python.uv_venv_auto = true
+
+[env]
+# Use the project name derived from the current directory
+PROJECT_NAME = "{{ config_root | basename }}"
+
+# Automatic virtualenv activation
+_.python.venv = { path = "/tmp/.venv-{{ env.PROJECT_NAME }}" , create = true }
+LC_ALL = "en_US.UTF-8"
+LC_CTYPE = "en_US.UTF-8"
+DEFAULT_IFACE = "{{ exec(command='ip route | grep default | head -n 1 | cut -d \" \" -f 5') }}"
+CURRENT_IP = "{{ exec(command='ip addr show ' ~ env.DEFAULT_IFACE ~ ' | grep inet | cut -d \"/\" -f 1 | cut -d \"t\" -f 2 | tr -d \" \" | head -n 1') }}"
+CURRENT_EXTERNAL_IP = "{{ exec(command='curl -sSL ipinfo.io/ip') }}"
+SECRET_KEY="{{ exec(command='python3 -c \"import os, base64; print(base64.b64encode(os.urandom(128)).decode())\"') }}"

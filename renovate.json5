@@ -1,0 +1,151 @@
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:recommended',
+    ':automergeAll',
+  ],
+  dependencyDashboard: true,
+  dependencyDashboardTitle: 'Renovate Dashboard 🤖',
+  suppressNotifications: [
+    'prEditedNotification',
+    'prIgnoreNotification',
+  ],
+  rebaseWhen: 'conflicted',
+  schedule: [
+    'before 5:30am',
+  ],
+  automerge: true,
+  automergeType: 'pr',
+  pruneStaleBranches: true,
+  flux: {
+    managerFilePatterns: [
+      '/common/.+\\.ya?ml$/',
+      '/bootstrap/.+\\.ya?ml$/',
+    ],
+  },
+  'helm-values': {
+    managerFilePatterns: [
+      '/common/.+values\\.ya?ml$/',
+      '/common/.+\\.ya?ml$/',
+    ],
+  },
+  kubernetes: {
+    managerFilePatterns: [
+      '/common/.+\\.ya?ml$/',
+      '/bootstrap/.+\\.ya?ml$/',
+    ],
+  },
+  packageRules: [
+    {
+      matchUpdateTypes: [
+        'minor',
+        'patch',
+      ],
+      automerge: true,
+      automergeType: 'pr',
+    },
+    {
+      matchUpdateTypes: [
+        'major',
+      ],
+      automerge: false,
+      reviewersFromCodeOwners: true,
+    },
+    {
+      matchDatasources: [
+        'helm',
+      ],
+      addLabels: [
+        'helm',
+      ],
+      commitMessageTopic: 'Helm chart {{depName}}',
+    },
+    {
+      matchDatasources: [
+        'docker',
+      ],
+      addLabels: [
+        'docker',
+      ],
+      commitMessageTopic: 'Docker image {{depName}}',
+    },
+    {
+      matchManagers: [
+        'flux',
+      ],
+      addLabels: [
+        'flux',
+      ],
+      commitMessageTopic: 'Flux {{depName}}',
+    },
+    {
+      addLabels: [
+        'k3s',
+      ],
+      commitMessageTopic: 'K3s {{depName}}',
+      matchPackageNames: [
+        '/k3s/',
+      ],
+    },
+    {
+      matchFileNames: [
+        'mise.toml',
+      ],
+      addLabels: [
+        'tools',
+      ],
+      commitMessageTopic: 'Development tool {{depName}}',
+    },
+    {
+      description: 'Group external-secrets updates',
+      groupName: 'external-secrets',
+      matchPackageNames: [
+        '/external-secrets/',
+      ],
+    },
+    {
+      description: 'Group Traefik updates',
+      groupName: 'traefik',
+      matchPackageNames: [
+        '/traefik/',
+      ],
+    },
+    {
+      description: 'Group monitoring stack updates',
+      groupName: 'monitoring',
+      matchPackageNames: [
+        '/prometheus/',
+        '/grafana/',
+        '/alertmanager/',
+      ],
+    },
+    {
+      description: 'Auto-merge patch updates for stable components',
+      matchUpdateTypes: [
+        'patch',
+      ],
+      automerge: true,
+      matchPackageNames: [
+        '/external-secrets/',
+        '/cert-manager/',
+        '/external-dns/',
+      ],
+    },
+  ],
+  customManagers: [
+    {
+      customType: 'regex',
+      managerFilePatterns: [
+        '/common/.+\\.ya?ml$/',
+      ],
+      matchStrings: [
+        '# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\s+.+: ["\']?(?<currentValue>[^"\'\\s]+)["\']?',
+      ],
+      versioningTemplate: '{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}',
+    },
+  ],
+  separateMinorPatch: true,
+  separateMajorMinor: true,
+  prConcurrentLimit: 5,
+  prHourlyLimit: 2,
+}

@@ -1,0 +1,234 @@
+---
+# yaml-language-server: $schema=https://homelab-schemas-epg.pages.dev/source.toolkit.fluxcd.io/gitrepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: learn-python
+  namespace: flux-system
+spec:
+  interval: 30m
+  url: https://github.com/dxas90/learn-python.git
+  ref:
+    branch: main
+  ignore: |
+    # exclude
+    /*
+    # include
+    !k8s/
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: learn-python
+  namespace: flux-system
+spec:
+  path: ./k8s/app
+  prune: true
+  commonMetadata:
+    labels:
+      app.kubernetes.io/custom-part-of: learn
+  targetNamespace: playground
+  sourceRef:
+    kind: GitRepository
+    name: learn-python
+    namespace: flux-system
+  wait: true
+  interval: 1m
+  retryInterval: 1m
+  timeout: 5m
+---
+# yaml-language-server: $schema=https://homelab-schemas-epg.pages.dev/source.toolkit.fluxcd.io/gitrepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: learn-java
+  namespace: flux-system
+spec:
+  interval: 30m
+  url: https://github.com/dxas90/learn-java.git
+  ref:
+    branch: main
+  ignore: |
+    # exclude
+    /*
+    # include
+    !k8s/
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: learn-java
+  namespace: flux-system
+spec:
+  path: ./k8s/app
+  prune: true
+  commonMetadata:
+    labels:
+      app.kubernetes.io/custom-part-of: learn
+  targetNamespace: playground
+  sourceRef:
+    kind: GitRepository
+    name: learn-java
+    namespace: flux-system
+  wait: true
+  interval: 1m
+  retryInterval: 1m
+  timeout: 5m
+---
+# yaml-language-server: $schema=https://homelab-schemas-epg.pages.dev/source.toolkit.fluxcd.io/gitrepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: learn-go
+  namespace: flux-system
+spec:
+  interval: 30m
+  url: https://github.com/dxas90/learn-go.git
+  ref:
+    branch: main
+  ignore: |
+    # exclude
+    /*
+    # include
+    !k8s/
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: learn-go
+  namespace: flux-system
+spec:
+  path: ./k8s/app
+  prune: true
+  commonMetadata:
+    labels:
+      app.kubernetes.io/custom-part-of: learn
+  targetNamespace: playground
+  sourceRef:
+    kind: GitRepository
+    name: learn-go
+    namespace: flux-system
+  wait: true
+  interval: 1m
+  retryInterval: 1m
+  timeout: 5m
+---
+# yaml-language-server: $schema=https://homelab-schemas-epg.pages.dev/source.toolkit.fluxcd.io/gitrepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: learn-node
+  namespace: flux-system
+spec:
+  interval: 30m
+  url: https://github.com/dxas90/learn-node.git
+  ref:
+    branch: main
+  ignore: |
+    # exclude
+    /*
+    # include
+    !k8s/
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: learn-node
+  namespace: flux-system
+spec:
+  path: ./k8s/app
+  prune: true
+  commonMetadata:
+    labels:
+      app.kubernetes.io/custom-part-of: learn
+  targetNamespace: playground
+  sourceRef:
+    kind: GitRepository
+    name: learn-node
+    namespace: flux-system
+  wait: true
+  interval: 1m
+  retryInterval: 1m
+  timeout: 5m
+---
+# yaml-language-server: $schema=https://homelab-schemas-epg.pages.dev/source.toolkit.fluxcd.io/gitrepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: learn-ruby
+  namespace: flux-system
+spec:
+  interval: 30m
+  url: https://github.com/dxas90/learn-ruby.git
+  ref:
+    branch: main
+  ignore: |
+    # exclude
+    /*
+    # include
+    !k8s/
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: learn-ruby
+  namespace: flux-system
+spec:
+  path: ./k8s/app
+  prune: true
+  commonMetadata:
+    labels:
+      app.kubernetes.io/custom-part-of: learn
+  targetNamespace: playground
+  sourceRef:
+    kind: GitRepository
+    name: learn-ruby
+    namespace: flux-system
+  wait: true
+  interval: 1m
+  retryInterval: 1m
+  timeout: 5m
+---
+# yaml-language-server: $schema=https://homelab-schemas-epg.pages.dev/source.toolkit.fluxcd.io/gitrepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: learn-php
+  namespace: flux-system
+spec:
+  interval: 30m
+  url: https://github.com/dxas90/learn-php.git
+  ref:
+    branch: main
+  ignore: |
+    # exclude
+    /*
+    # include
+    !k8s/
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: learn-php
+  namespace: flux-system
+spec:
+  path: ./k8s/app
+  prune: true
+  commonMetadata:
+    labels:
+      app.kubernetes.io/custom-part-of: learn
+  targetNamespace: playground
+  sourceRef:
+    kind: GitRepository
+    name: learn-php
+    namespace: flux-system
+  wait: true
+  interval: 1m
+  retryInterval: 1m
+  timeout: 5m

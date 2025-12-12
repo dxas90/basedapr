@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - https://raw.githubusercontent.com/dxas90/learn-go/refs/heads/main/k8s/ks.yaml
+  - https://raw.githubusercontent.com/dxas90/learn-java/refs/heads/main/k8s/ks.yaml
+  - https://raw.githubusercontent.com/dxas90/learn-node/refs/heads/main/k8s/ks.yaml
+  - https://raw.githubusercontent.com/dxas90/learn-php/refs/heads/main/k8s/ks.yaml
+  - https://raw.githubusercontent.com/dxas90/learn-python/refs/heads/main/k8s/ks.yaml
+  - https://raw.githubusercontent.com/dxas90/learn-ruby/refs/heads/main/k8s/ks.yaml
+  - https://raw.githubusercontent.com/dxas90/learn-rust/refs/heads/main/k8s/ks.yaml
