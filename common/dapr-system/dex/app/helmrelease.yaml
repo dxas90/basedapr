@@ -24,29 +24,11 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: dex-helm-values
   # https://github.com/dexidp/helm-charts/tree/dex-0.24.0/charts/dex
   values:
-    commonLabels:
-      toolkit.fluxcd.io/tenant: devops-team
-      app.kubernetes.io/part-of-system: *app
-    config:
-      # Set it to a valid URL
-      issuer: https://dexidp.ingwth.me
-
-      # See https://dexidp.io/docs/storage/ for more options
-      storage:
-        type: memory
-
-      # Enable at least one connector
-      # See https://dexidp.io/docs/connectors/ for more options
-      enablePasswordDB: true
-
-      staticPasswords:
-        - email: "admin@example.com"
-          # bcrypt hash of the string "password": $(echo password | htpasswd -BinC 10 admin | cut -d: -f2)
-          hash: "$2y$10$VBejpyosWp31/ekERC6Fyu3euAXsGf4R30KbTLCEksAd/4KjDybBG"
-          username: "admin"
-          userID: "08a8684b-db88-4b73-90a9-3cd1661f5466"
-      # Allow password grants with local users
-      oauth2:
-        passwordConnector: local
+    envFrom:
+      - secretRef:
+          name: dex-helm-values
