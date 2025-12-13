@@ -28,7 +28,7 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  # values:
-  #   cniBinDir: /opt/cni/bin
-  #   ambient:
-  #     enabled: true
+  values:
+    ambient:
+      enabled: true
+    # cniBinDir: /opt/cni/bin
