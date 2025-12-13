@@ -1,6 +1,14 @@
 ---
-# yaml-language-server: $schema=https://json.schemastore.org/kustomization
-apiVersion: kustomize.config.k8s.io/v1alpha1
-kind: Component
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+transformers:
+  - labels.yaml
 resources:
   - common-repo.yaml
+  - ../common/dapr-system
+  - ../common/default
+  - ../common/external-secrets
+  - ../common/istio-system
+  - ../common/keda
+  - ../common/kube-system
+  - ../common/kube-tools
