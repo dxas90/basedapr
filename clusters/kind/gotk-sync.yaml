@@ -44,6 +44,5 @@ spec:
     kind: GitRepository
     name: basedapr
 
-# kubectl apply --server-side -k bootstrap; \
-# kubectl apply --server-side -k common; \
-# kubectl apply -f clusters/kind/gotk-sync.yaml
+  # kubectl apply --server-side -k bootstrap; \
+  # kubectl apply -f clusters/kind/gotk-sync.yaml
