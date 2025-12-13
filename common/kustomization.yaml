@@ -6,6 +6,7 @@ components:
 transformers:
   - labels.yaml
 resources:
+  - ./apps.yaml
   - dapr-system
   - default
   - external-secrets
