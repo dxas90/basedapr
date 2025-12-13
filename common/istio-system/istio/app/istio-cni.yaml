@@ -35,3 +35,5 @@ spec:
       platform: k3s
     cniConfDir: /var/lib/rancher/k3s/agent/etc/cni/net.d
     cniBinDir: /var/lib/rancher/k3s/data/cni
+    cni:
+      nativeNftables: true
