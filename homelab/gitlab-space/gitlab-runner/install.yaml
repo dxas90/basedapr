@@ -5,7 +5,7 @@ metadata:
   name: gitlab-runner
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/gitlab-space/gitlab-runner/app
+  path: ./homelab/gitlab-space/gitlab-runner/app
   prune: true
   sourceRef:
     kind: GitRepository

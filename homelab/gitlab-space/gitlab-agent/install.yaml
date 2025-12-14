@@ -5,7 +5,7 @@ metadata:
   name: gitlab-agent
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/gitlab-space/gitlab-agent/app
+  path: ./homelab/gitlab-space/gitlab-agent/app
   prune: true
   sourceRef:
     kind: GitRepository
