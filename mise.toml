@@ -23,3 +23,12 @@ LC_ALL = "en_US.UTF-8"
 LC_CTYPE = "en_US.UTF-8"
 SECRET_KEY="{{ exec(command='python3 -c \"import os, base64; print(base64.b64encode(os.urandom(128)).decode())\"') }}"
 # KUBECONFIG="/etc/rancher/k3s/k3s.yaml"
+
+[tasks."cluster/bootstrap"]
+description = "Bootstrap cluster with default components"
+alias = 'cb'
+run = [
+  "echo 'Bootstraping cluster with default components'",
+  "kubectl apply --kustomize bootstrap",
+  "sops exec-file \"bootstrap/sops-age.sops.yaml\" \"kubectl --namespace flux-system apply --server-side --filename {}\""
+]
