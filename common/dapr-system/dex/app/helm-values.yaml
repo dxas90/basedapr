@@ -32,7 +32,8 @@ config:
           - profile
           - email
         getUserInfo: true
-
+  web:
+    http: 0.0.0.0:5556
   # Allow password grants with local users
   oauth2:
     passwordConnector: local

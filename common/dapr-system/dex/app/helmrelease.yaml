@@ -27,6 +27,8 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: dex-helm-values
+    - kind: Secret
+      name: dex-static-clients-values
   # https://github.com/dexidp/helm-charts/tree/dex-0.24.0/charts/dex
   values:
     envFrom:
