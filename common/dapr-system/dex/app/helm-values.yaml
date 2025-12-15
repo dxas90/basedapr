@@ -2,6 +2,10 @@
 commonLabels:
   toolkit.fluxcd.io/tenant: devops-team
   app.kubernetes.io/part-of-system: dex
+deploymentAnnotations:
+  reloader.stakater.com/auto: "true"
+podAnnotations:
+  reloader.stakater.com/auto: "true"
 config:
   # Set it to a valid URL
   issuer: http://dex.dapr-system.svc.cluster.local:5556
