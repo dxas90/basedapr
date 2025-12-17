@@ -8,6 +8,7 @@ resources:
   - https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml
   - https://raw.githubusercontent.com/dragonflydb/dragonfly-operator/refs/tags/v1.3.1/manifests/dragonfly-operator.yaml
   - https://github.com/cloudnative-pg/cloudnative-pg/releases/download/v1.27.1/cnpg-1.27.1.yaml
+  - github.com/minio/operator?ref=v7.1.1
   - ./percona
 patches:
   - patch: |-
