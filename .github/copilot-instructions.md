@@ -2,6 +2,17 @@
 
 GitOps-based Kubernetes cluster management using FluxCD, Kustomize, Helm, and SOPS encryption.
 
+## Gitea Issue Tracking
+
+**All development work must be tracked via Gitea issues.** Use the helper script at `../tests/scripts/gitea-issue-manager.sh` to:
+- Query issue status: `./gitea-issue-manager.sh list-issues foundations`
+- Add progress comments: `./gitea-issue-manager.sh add-comment foundations <issue_num> "status update"`
+- Check all repos: `./gitea-issue-manager.sh sync-status`
+
+**IMPORTANT:** Add comments about completion status, but **NEVER close issues**. The user will manually review and close after verification.
+
+**Requires:** `GITEA_TOKEN` environment variable. Issues tracked at https://gitea.dxas90.work/secdevopspro/foundations/issues
+
 ## Architecture
 
 **Four-Layer Structure:**
