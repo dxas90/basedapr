@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: percona-system
+  name: psmdb-operator
   labels:
     toolkit.fluxcd.io/tenant: devops-team
     kustomize.toolkit.fluxcd.io/prune: disabled
